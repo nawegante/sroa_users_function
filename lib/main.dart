@@ -13,6 +13,8 @@ Future main(final context) async {
   }
 
   if (context.req.method == 'POST') {
+    context.log(context.req.bodyJson);
+    context.log(context.req.bodyJson.runtimeType);
     final {'id': String userId, 'enabled': bool status} = context.req.bodyJson;
 
     await Users(client).updateStatus(userId: userId, status: status);
