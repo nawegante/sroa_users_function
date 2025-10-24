@@ -12,5 +12,12 @@ Future main(final context) async {
     return context.res.json(result.toMap());
   }
 
+  if (context.req.method == 'POST') {
+    final {'id': String userId, 'enabled': bool status} = context.req.bodyJson;
+
+    await Users(client).updateStatus(userId: userId, status: status);
+    return context.res.json({});
+  }
+
   return context.res.empty();
 }
