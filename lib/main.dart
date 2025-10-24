@@ -13,12 +13,11 @@ Future main(final context) async {
   }
 
   if (context.req.method == 'POST') {
-    context.log(context.req.bodyJson);
-    context.log(context.req.bodyJson.runtimeType);
-    final {'id': String userId, 'enabled': bool status} = context.req.bodyJson;
-
-    await Users(client).updateStatus(userId: userId, status: status);
-    return context.res.json({});
+    if (context.req.bodyJson
+        case {'id': String userId, 'status': bool status}) {
+      await Users(client).updateStatus(userId: userId, status: status);
+      return context.res.json({});
+    }
   }
 
   return context.res.empty();
